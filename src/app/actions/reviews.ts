@@ -29,7 +29,16 @@ export async function getReviews(productId: string): Promise<Review[]> {
     .eq("product_id", productId)
     .order("created_at", { ascending: false });
 
-  if (error) { console.error("getReviews:", error); return []; }
+  if (error) {
+    console.error("getReviews error:", error.message);
+    // Si falla el join con profiles, intentar sin él
+    const { data: fallback } = await supabase
+      .from("reviews")
+      .select("*")
+      .eq("product_id", productId)
+      .order("created_at", { ascending: false });
+    return ((fallback ?? []) as Review[]).map((r) => ({ ...r, profiles: null }));
+  }
   return (data ?? []) as Review[];
 }
 

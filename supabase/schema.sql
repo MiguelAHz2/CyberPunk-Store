@@ -14,9 +14,10 @@ CREATE TABLE IF NOT EXISTS profiles (
 
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Usuarios ven su propio perfil"
+-- Perfiles visibles para todos (necesario para mostrar nombres en reseñas)
+CREATE POLICY "Perfiles visibles públicamente"
   ON profiles FOR SELECT
-  USING (auth.uid() = id);
+  USING (true);
 
 CREATE POLICY "Usuarios actualizan su propio perfil"
   ON profiles FOR UPDATE
