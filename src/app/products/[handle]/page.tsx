@@ -11,7 +11,9 @@ import { isInWishlist } from "@/app/actions/wishlist";
 import { ReviewSection } from "@/components/shop/ReviewSection";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
+// force-dynamic: esta página tiene datos de usuario (wishlist, reseñas)
+// Los datos de Shopify se cachean a nivel de fetch con revalidateTag
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,

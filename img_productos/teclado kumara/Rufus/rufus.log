@@ -1,0 +1,272 @@
+Rufus x64 v4.13.2316 (Portable)
+Windows version: Windows 10 Pro x64 (Build 19045.6575)
+Syslinux versions: 4.07/2013-07-25, 6.04/pre1
+Grub versions: 0.4.6a, 2.14
+System locale ID: 0x0C0A (es-ES)
+Will use default UI locale 0x0C0A
+SetLGP: Successfully set NoDriveTypeAutorun policy to 0x0000009E
+Localization set to 'es-ES'
+Found USB 2.0 device 'General UDisk USB Device' (ABCD:1234)
+Using 'autorun.inf' label for drive G: 'MiniOS10LTSB'
+1 device found
+Disk type: Removable, Disk size: 14.6 GB, Sector size: 512 bytes
+Cylinders: 1912, Tracks per cylinder: 255, Sectors per track: 63
+Partition type: MBR, NB Partitions: 1
+Disk ID: 0x00063B75
+Drive has a Rufus Master Boot Record
+Partition 1:
+  Type: NTFS (0x07)
+  Detected File System: NTFS
+  Size: 14.6 GB (15727570944 bytes)
+  Start Sector: 2048, Boot: Yes
+Found USB 2.0 device 'General UDisk USB Device' (ABCD:1234)
+Using 'autorun.inf' label for drive G: 'MiniOS10LTSB'
+1 device found
+Disk type: Removable, Disk size: 14.6 GB, Sector size: 512 bytes
+Cylinders: 1912, Tracks per cylinder: 255, Sectors per track: 63
+Partition type: MBR, NB Partitions: 1
+Disk ID: 0x00063B75
+Drive has a Rufus Master Boot Record
+Partition 1:
+  Type: NTFS (0x07)
+  Detected File System: NTFS
+  Size: 14.6 GB (15727570944 bytes)
+  Start Sector: 2048, Boot: Yes
+Found USB 2.0 device 'General UDisk USB Device' (ABCD:1234)
+Using 'autorun.inf' label for drive G: 'MiniOS10LTSB'
+1 device found
+Disk type: Removable, Disk size: 14.6 GB, Sector size: 512 bytes
+Cylinders: 1912, Tracks per cylinder: 255, Sectors per track: 63
+Partition type: MBR, NB Partitions: 1
+Disk ID: 0x00063B75
+Drive has a Rufus Master Boot Record
+Partition 1:
+  Type: NTFS (0x07)
+  Detected File System: NTFS
+  Size: 14.6 GB (15727570944 bytes)
+  Start Sector: 2048, Boot: Yes
+Scanning image...
+ISO analysis:
+  Image is a UDF image
+Disk image analysis:
+  Image does not have a Boot Marker
+UEFI bootloaders analysis:
+  • /bootmgr.efi*
+  Signed by 'Microsoft Windows Production PCA 2011'
+  Note: This bootloader may fail Secure Boot validation on systems that
+  have been updated to use the 'Windows UEFI CA 2023' certificate.
+  • /efi/boot/bootx64.efi*
+  Signed by 'Windows UEFI CA 2023'
+  Note: This bootloader will fail Secure Boot validation on systems that
+  have not been updated to use the latest Secure Boot certificates
+ISO label: 'MiniOS10Pro'
+  Detected: Windows 10 ISO (Build 19045.6575)
+  Size: 5.8 GB (Projected)
+  Has a >4GB file
+  Uses: EFI
+  Uses: Bootmgr (BIOS and UEFI)
+  Uses: Install.esd (version 0.0.14)
+Using image: MiniOS10 Pro v26.0 x64.iso (5.8 GB)
+Note: No Windows User Experience options selected
+
+Format operation started
+Requesting disk access...
+Will use 'G:' as volume mountpoint
+Opened \\.\PhysicalDrive3 for exclusive write access
+Analyzing existing boot records...
+Drive has a Rufus Master Boot Record
+Clearing MBR/PBR/GPT structures...
+Zeroed 8 MB at the top of the drive
+Zeroed 1 MB at the end of the drive
+Initializing disk...
+Partitioning (GPT)...
+● Creating Main Data Partition (offset: 1048576, size: 14.6 GB)
+● Creating UEFI:NTFS Partition (offset: 15727541760, size: 1 MB)
+Writing UEFI:NTFS data...
+Refreshing drive layout...
+Closed Windows format prompt
+Waiting for logical drive to reappear...
+Formatting to NTFS (using IFS)
+Using cluster size: 4096 bytes
+Quick format was selected
+Creating file system...
+Format completed.
+Writing Master Boot Record...
+Using Rufus protective MBR
+Writing protective message SBR
+Found volume \\?\Volume{5ae8a2b2-29d3-11f1-aa2a-a8a1599538af}\
+Disabling file indexing...
+Successfully remounted \\?\Volume{5ae8a2b2-29d3-11f1-aa2a-a8a1599538af}\ as G:
+Extracting files...
+Image is a UDF image
+Extracting: G:\boot\bcd (16 KB)
+Extracting: G:\boot\boot.sdi (3 MB)
+Extracting: G:\boot\bootfix.bin (1 KB)
+Extracting: G:\boot\bootsect.exe (107.8 KB)
+Extracting: G:\boot\es-es\bootsect.exe.mui (19 KB)
+Extracting: G:\boot\etfsboot.com (4 KB)
+Extracting: G:\boot\fonts\chs_boot.ttf (3.5 MB)
+Extracting: G:\boot\fonts\cht_boot.ttf (3.7 MB)
+Extracting: G:\boot\fonts\jpn_boot.ttf (1.9 MB)
+Extracting: G:\boot\fonts\kor_boot.ttf (2.3 MB)
+Extracting: G:\boot\fonts\malgun_boot.ttf (197.3 KB)
+Extracting: G:\boot\fonts\malgun_console.ttf (79.5 KB)
+Extracting: G:\boot\fonts\malgunn_boot.ttf (194.7 KB)
+Extracting: G:\boot\fonts\meiryo_boot.ttf (171.9 KB)
+Extracting: G:\boot\fonts\meiryo_console.ttf (88.5 KB)
+Extracting: G:\boot\fonts\meiryon_boot.ttf (170.1 KB)
+Extracting: G:\boot\fonts\msjh_boot.ttf (196.5 KB)
+Extracting: G:\boot\fonts\msjh_console.ttf (198.1 KB)
+Extracting: G:\boot\fonts\msjhn_boot.ttf (194.5 KB)
+Extracting: G:\boot\fonts\msyh_boot.ttf (185.4 KB)
+Extracting: G:\boot\fonts\msyh_console.ttf (94.2 KB)
+Extracting: G:\boot\fonts\msyhn_boot.ttf (183.6 KB)
+Extracting: G:\boot\fonts\segmono_boot.ttf (44.8 KB)
+Extracting: G:\boot\fonts\segoe_slboot.ttf (100.6 KB)
+Extracting: G:\boot\fonts\segoen_slboot.ttf (100.3 KB)
+Extracting: G:\boot\fonts\wgl4_boot.ttf (48.9 KB)
+Extracting: G:\boot\memtest.exe (977.3 KB)
+Extracting: G:\boot\resources\bootres.dll (90.3 KB)
+Extracting: G:\bootmgr (410.4 KB)
+Extracting: G:\bootmgr.efi (2.7 MB)
+Extracting: G:\efi\boot\bootx64.efi (2.7 MB)
+Extracting: G:\efi\microsoft\boot\bcd (16 KB)
+Extracting: G:\efi\microsoft\boot\cdboot.efi (1.1 MB)
+Extracting: G:\efi\microsoft\boot\cdboot_noprompt.efi (1.1 MB)
+Extracting: G:\efi\microsoft\boot\efisys.bin (1.4 MB)
+Extracting: G:\efi\microsoft\boot\efisys_EX.bin (1.4 MB)
+Extracting: G:\efi\microsoft\boot\efisys_noprompt.bin (1.4 MB)
+Extracting: G:\efi\microsoft\boot\efisys_noprompt_EX.bin (1.4 MB)
+Extracting: G:\efi\microsoft\boot\fonts\chs_boot.ttf (3.5 MB)
+Extracting: G:\efi\microsoft\boot\fonts\cht_boot.ttf (3.7 MB)
+Extracting: G:\efi\microsoft\boot\fonts\jpn_boot.ttf (1.9 MB)
+Extracting: G:\efi\microsoft\boot\fonts\kor_boot.ttf (2.3 MB)
+Extracting: G:\efi\microsoft\boot\fonts\malgun_boot.ttf (174.2 KB)
+Extracting: G:\efi\microsoft\boot\fonts\malgun_console.ttf (79.5 KB)
+Extracting: G:\efi\microsoft\boot\fonts\malgunn_boot.ttf (171.8 KB)
+Extracting: G:\efi\microsoft\boot\fonts\meiryo_boot.ttf (141.3 KB)
+Extracting: G:\efi\microsoft\boot\fonts\meiryo_console.ttf (88.5 KB)
+Extracting: G:\efi\microsoft\boot\fonts\meiryon_boot.ttf (139.7 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msjh_boot.ttf (157.6 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msjh_console.ttf (198.1 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msjhn_boot.ttf (155.7 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msyh_boot.ttf (153.9 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msyh_console.ttf (94.2 KB)
+Extracting: G:\efi\microsoft\boot\fonts\msyhn_boot.ttf (152.1 KB)
+Extracting: G:\efi\microsoft\boot\fonts\segmono_boot.ttf (42.8 KB)
+Extracting: G:\efi\microsoft\boot\fonts\segoe_slboot.ttf (83.2 KB)
+Extracting: G:\efi\microsoft\boot\fonts\segoen_slboot.ttf (82.9 KB)
+Extracting: G:\efi\microsoft\boot\fonts\wgl4_boot.ttf (46.3 KB)
+Extracting: G:\efi\microsoft\boot\memtest.efi (1.3 MB)
+Extracting: G:\efi\microsoft\boot\resources\bootres.dll (90.3 KB)
+Extracting: G:\efi\microsoft\boot\winsipolicy.p7b (9.6 KB)
+Extracting: G:\sources\Setup.exe (287.4 KB)
+Extracting: G:\sources\ar-sa\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\bg-bg\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\boot.wim (450.9 MB)
+Extracting: G:\sources\cs-cz\AcRes.dll.mui (339 KB)
+Extracting: G:\sources\da-dk\AcRes.dll.mui (330.5 KB)
+Extracting: G:\sources\de-de\AcRes.dll.mui (369 KB)
+Extracting: G:\sources\el-gr\AcRes.dll.mui (385.5 KB)
+Extracting: G:\sources\en-gb\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\en-us\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\es-mx\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\et-ee\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\fi-fi\AcRes.dll.mui (334 KB)
+Extracting: G:\sources\fr-ca\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\fr-fr\AcRes.dll.mui (367.5 KB)
+Extracting: G:\sources\he-il\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\hr-hr\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\hu-hu\AcRes.dll.mui (360 KB)
+Extracting: G:\sources\install.esd (5.3 GB)
+Extracting: G:\sources\it-it\AcRes.dll.mui (367.5 KB)
+Extracting: G:\sources\ja-jp\AcRes.dll.mui (231.5 KB)
+Extracting: G:\sources\ko-kr\AcRes.dll.mui (219.5 KB)
+Extracting: G:\sources\lt-lt\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\lv-lv\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\nb-no\AcRes.dll.mui (331.5 KB)
+Extracting: G:\sources\nl-nl\AcRes.dll.mui (372 KB)
+Extracting: G:\sources\pl-pl\AcRes.dll.mui (374.5 KB)
+Extracting: G:\sources\pt-br\AcRes.dll.mui (348 KB)
+Extracting: G:\sources\pt-pt\AcRes.dll.mui (350 KB)
+Extracting: G:\sources\ro-ro\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\ru-ru\AcRes.dll.mui (347.5 KB)
+Extracting: G:\sources\sk-sk\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\sl-si\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\sr-latn-rs\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\sv-se\AcRes.dll.mui (340.5 KB)
+Extracting: G:\sources\th-th\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\tr-tr\AcRes.dll.mui (328.5 KB)
+Extracting: G:\sources\uk-ua\AcRes.dll.mui (315.5 KB)
+Extracting: G:\sources\ws.dat (111 bytes)
+Extracting: G:\sources\zh-cn\AcRes.dll.mui (178.5 KB)
+Extracting: G:\sources\zh-tw\AcRes.dll.mui (178.5 KB)
+Extracting: G:\zRufus-4.11.exe (1.8 MB)
+Finalizing, please wait...
+Created: G:autorun.inf
+Created: G:autorun.ico
+NTFS Fixup (Checkdisk)...
+La etiqueta de volumen es MiniOS10Pro.
+
+Etapa 1: Examen de la estructura b�sica del sistema de archivos..
+  256 registros de archivos procesados.
+Comprobaci�n de archivos completada
+ Duraci�n de la fase (Comprobaci�n de registro de archivo): 14.40 milisegundo
+  0 registros de archivos grandes procesados.
+ Duraci�n de la fase (Recuperaci�n de registro de archivo hu�rfano): 0.57 milisegund
+  0 registros de archivos no v�lidos procesados
+ Duraci�n de la fase (Comprobaci�n de registro de archivo incorrecto): 0.19 milisegundo
+
+Etapa 2: Examen de la vinculaci�n de nombres de archivos..
+  380 entradas de �ndice procesadas
+Comprobaci�n de �ndices completad
+ Duraci�n de la fase (Comprobaci�n de �ndice): 42.55 milisegund
+ Duraci�n de la fase (Reconexi�n de hu�rfanos): 0.05 milisegund
+ Duraci�n de la fase (Recuperaci�n de hu�rfanos en objetos perdidos): 0.01 milisegund
+  0 registros de an�lisis procesados
+  0 registros de an�lisis procesados
+ Duraci�n de la fase (Comprobaci�n de punto de repetici�n de an�lisis y de id. de objeto): 0.50 milisegun
+
+Etapa 3: Examen de los descriptores de seguridad...
+Comprobaci�n de descriptores de seguridad completada
+ Duraci�n de la fase (Comprobaci�n de descriptor de seguridad): 12.31 milisegundo
+  62 archivos de datos procesados.
+ Duraci�n de la fase (Comprobaci�n de atributos de datos): 0.35 milisegundo
+
+Se examin� el sistema de archivos sin encontrar problemas.
+No se requieren m�s accione
+
+  15357887 KB de espacio total en disco.
+   6087648 KB en 111 archivos.
+       100 KB en 64 �ndices
+     23927 KB en uso por el sistema.
+El archivo de registro ha ocupado      22784 kilobytes.
+   9246212 KB disponibles en disco.
+      4096 bytes en cada unidad de asignaci�n
+   3839471 unidades de asignaci�n en disco en total
+   2311553 unidades de asignaci�n disponibles en disco
+Duraci�n total: 71.84 milisegundos (71�ms
+NTFS Fixup completed.
+
+Found USB 2.0 device 'General UDisk USB Device' (ABCD:1234)
+Using 'autorun.inf' label for drive G: 'MiniOS10Pro'
+1 device found
+Disk type: Removable, Disk size: 14.6 GB, Sector size: 512 bytes
+Cylinders: 1912, Tracks per cylinder: 255, Sectors per track: 63
+Partition type: GPT, NB Partitions: 2
+Disk GUID: {BCA07173-602C-4CB0-8135-6231EB74B1AE}
+Max parts: 128, Start Offset: 17408, Usable = 15728605696 bytes
+Partition 1:
+  Type: Microsoft Basic Data Partition
+  Name: 'Main Data Partition'
+  Detected File System: NTFS
+  ID: {519B2939-BFA7-45D0-A3E2-50719D671B98}
+  Size: 14.6 GB (15726477312 bytes)
+  Start Sector: 2048, Attributes: 0x0000000000000000
+Partition 2 (UEFI:NTFS):
+  Type: Microsoft Basic Data Partition
+  Name: 'UEFI:NTFS'
+  Detected File System: FAT12
+  ID: {02778BC2-373B-4E9B-B1B6-536F30BD2CD6}
+  Size: 1 MB (1064448 bytes)
+  Start Sector: 30717855, Attributes: 0x9000000000000000
