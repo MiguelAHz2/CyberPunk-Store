@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/shop/CartDrawer";
 import { ScanlineOverlay } from "@/components/cyberpunk/ScanlineOverlay";
 import { SetupBanner } from "@/components/dev/SetupBanner";
+import { ToastContainer } from "@/components/ui/ToastContainer";
 
 const orbitron = Orbitron({
   variable:  "--font-orbitron",
@@ -71,6 +72,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <CartDrawer />
+        <ToastContainer />
         {process.env.NODE_ENV === "development" && (
           <SetupBanner
             checks={[

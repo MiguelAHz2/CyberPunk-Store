@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useCartStore } from "@/store/cart";
+import { useToast } from "@/store/toast";
 import { createCartAction, addToCartAction } from "@/app/actions/cart";
 
 export function useAddToCart() {
@@ -10,6 +11,7 @@ export function useAddToCart() {
 
   const { cartId, setCartId, setCheckoutUrl, setItems, openCart } =
     useCartStore();
+  const toast = useToast();
 
   const addItem = useCallback(
     async (variantId: string, quantity = 1) => {
@@ -33,10 +35,12 @@ export function useAddToCart() {
         setCheckoutUrl(result.checkoutUrl);
         setItems(result.items);
         openCart();
+        toast.success("Agregado al carrito");
       } catch (err) {
         const msg =
           err instanceof Error ? err.message : "Error al agregar al carrito";
         setError(msg);
+        toast.error("Error al agregar", msg);
         console.error("Add to cart error:", err);
       } finally {
         setLoading(false);

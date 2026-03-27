@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { formatPrice } from "@/lib/utils";
 import { ProductDetailClient } from "./ProductDetailClient";
 import { isInWishlist } from "@/app/actions/wishlist";
+import { ReviewSection } from "@/components/shop/ReviewSection";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -198,12 +199,15 @@ export default async function ProductPage({
         </div>
       </div>
 
+      {/* Reviews */}
+      <ReviewSection productId={product.id} productHandle={handle} />
+
       {/* Related */}
       {related.length > 0 && (
-        <section>
+        <section className="mt-16 border-t border-border-dim pt-12">
           <div className="mb-8">
             <p className="font-mono text-xs text-cyan tracking-widest mb-2">
-              // TAMBIÉN TE PUEDE INTERESAR
+              {"// TAMBIÉN TE PUEDE INTERESAR"}
             </p>
             <h2 className="font-display text-2xl font-bold uppercase text-text-primary">
               Productos Relacionados

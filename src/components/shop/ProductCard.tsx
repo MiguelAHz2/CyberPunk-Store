@@ -7,9 +7,10 @@ import type { ShopifyProduct } from "@/lib/shopify/types";
 
 interface ProductCardProps {
   product: ShopifyProduct;
+  rating?: { avg_rating: number; review_count: number } | null;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, rating }: ProductCardProps) {
   const price      = product.priceRange.minVariantPrice;
   const compareAt  = product.compareAtPriceRange?.minVariantPrice;
   const hasDiscount =
@@ -93,6 +94,17 @@ export function ProductCard({ product }: ProductCardProps) {
           <h3 className="font-display text-xs tracking-widest uppercase text-text-primary group-hover:text-cyan transition-colors line-clamp-2 mb-2">
             {product.title}
           </h3>
+
+          {rating && rating.review_count > 0 && (
+            <div className="flex items-center gap-1 mb-1.5">
+              {[1,2,3,4,5].map((s) => (
+                <span key={s} className={`text-[10px] ${s <= Math.round(Number(rating.avg_rating)) ? "text-yellow" : "text-text-dim"}`}>★</span>
+              ))}
+              <span className="font-mono text-[0.55rem] text-text-dim ml-0.5">
+                ({rating.review_count})
+              </span>
+            </div>
+          )}
 
           <div className="flex items-baseline gap-2">
             <span className="font-mono text-sm text-cyan">

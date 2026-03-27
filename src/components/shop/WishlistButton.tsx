@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { Heart } from "lucide-react";
 import { toggleWishlist } from "@/app/actions/wishlist";
+import { useToast } from "@/store/toast";
 import { cn } from "@/lib/utils";
 
 interface WishlistButtonProps {
@@ -26,7 +27,7 @@ export function WishlistButton({
 }: WishlistButtonProps) {
   const [inWishlist, setInWishlist] = useState(initialState);
   const [isPending, startTransition] = useTransition();
-  const [toast, setToast] = useState<string | null>(null);
+  const toast = useToast();
 
   const handleToggle = () => {
     startTransition(async () => {
@@ -40,14 +41,16 @@ export function WishlistButton({
       });
 
       if (result.error) {
-        setToast(result.error);
-        setTimeout(() => setToast(null), 3000);
+        toast.error("Wishlist", result.error);
         return;
       }
 
       setInWishlist(result.inWishlist);
-      setToast(result.inWishlist ? "Agregado a wishlist" : "Eliminado de wishlist");
-      setTimeout(() => setToast(null), 2000);
+      if (result.inWishlist) {
+        toast.success("Agregado a wishlist", title);
+      } else {
+        toast.info("Eliminado de wishlist");
+      }
     });
   };
 
@@ -71,13 +74,6 @@ export function WishlistButton({
           className="transition-all"
         />
       </button>
-
-      {/* Mini toast */}
-      {toast && (
-        <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[0.6rem] tracking-widest px-2 py-1 border border-border-dim bg-bg-dark text-text-muted">
-          {toast}
-        </div>
-      )}
     </div>
   );
 }
