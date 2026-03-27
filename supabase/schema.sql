@@ -101,7 +101,7 @@ CREATE INDEX IF NOT EXISTS idx_reviews_product_handle ON reviews(product_handle)
 CREATE INDEX IF NOT EXISTS idx_reviews_user_id        ON reviews(user_id);
 
 -- ── Vista de ratings promedio por producto ────────────────────
-CREATE OR REPLACE VIEW product_ratings AS
+CREATE OR REPLACE VIEW product_ratings WITH (security_invoker = true) AS
   SELECT
     product_id,
     product_handle,

@@ -6,7 +6,7 @@ import { GlitchText } from "@/components/cyberpunk/GlitchText";
 import { HexGrid } from "@/components/cyberpunk/HexGrid";
 import { Badge } from "@/components/ui/Badge";
 
-export const revalidate = 300;
+export const revalidate = 60;
 
 const FEATURES = [
   { icon: Zap,    label: "Envío Express",     desc: "Entrega en 24-48h" },
