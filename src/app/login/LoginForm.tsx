@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, RefreshCw } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Input } from "@/components/ui/Input";
@@ -22,7 +22,8 @@ function translateAuthError(msg: string): string {
 }
 
 export function LoginForm() {
-  const router = useRouter();
+  const router      = useRouter();
+  const searchParams = useSearchParams();
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
   const [error,    setError]    = useState<string | null>(null);
@@ -49,7 +50,9 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/account");
+    // Navegación directa — más rápida que router.push + router.refresh
+    const next = searchParams.get("next") ?? "/account";
+    router.replace(next);
     router.refresh();
   };
 

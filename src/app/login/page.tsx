@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { LoginForm } from "./LoginForm";
 import { GlitchText } from "@/components/cyberpunk/GlitchText";
 import { HexGrid } from "@/components/cyberpunk/HexGrid";
@@ -14,10 +15,9 @@ export default function LoginPage() {
       <HexGrid opacity={0.04} />
 
       <div className="relative z-10 w-full max-w-sm">
-        {/* Header */}
         <div className="text-center mb-8">
           <p className="font-mono text-xs text-cyan tracking-widest mb-3">
-            // AUTENTICACIÓN REQUERIDA
+            {"// AUTENTICACIÓN REQUERIDA"}
           </p>
           <GlitchText text="ACCEDER" as="h1" color="cyan" className="text-4xl font-black" />
           <p className="font-mono text-xs text-text-dim mt-3">
@@ -25,7 +25,15 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <LoginForm />
+        <Suspense fallback={
+          <div className="border border-border-cyan bg-bg-card p-8 animate-pulse">
+            <div className="h-10 bg-bg-card-hover mb-4" />
+            <div className="h-10 bg-bg-card-hover mb-4" />
+            <div className="h-10 bg-bg-card-hover" />
+          </div>
+        }>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
   );
