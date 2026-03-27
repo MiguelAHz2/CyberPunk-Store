@@ -3,54 +3,48 @@
 import Link from "next/link";
 import { useEffect, useState, useCallback } from "react";
 import {
-  ShoppingCart,
-  Search,
-  User,
-  Menu,
-  X,
-  Zap,
-  ChevronDown,
+  ShoppingCart, Search, User, Menu, X, Zap, ChevronDown, LayoutGrid,
 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
-  {
-    label: "Productos",
-    href: "/products",
-    children: [
-      { label: "Todos los productos", href: "/products" },
-      { label: "Componentes PC",      href: "/collections/componentes-pc" },
-      { label: "Periféricos",         href: "/collections/perifericos" },
-      { label: "Audio / VR",          href: "/collections/audio-vr" },
-      { label: "Iluminación RGB",     href: "/collections/rgb" },
-    ],
-  },
-  { label: "Colecciones", href: "/collections" },
-  { label: "Ofertas",     href: "/products?sortKey=PRICE&reverse=true" },
-  { label: "Nosotros",    href: "/about" },
+interface NavCollection { handle: string; title: string }
+
+const STATIC_NAV = [
+  { label: "Ofertas",   href: "/products?sortKey=PRICE&reverse=true" },
+  { label: "Nosotros",  href: "/about" },
 ];
 
 export function Header() {
   const toggleCart = useCartStore((s) => s.toggleCart);
   const rawQty     = useCartStore((s) => s.totalQuantity());
 
-  const [scrolled,   setScrolled]   = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted,    setMounted]    = useState(false);
+  const [scrolled,        setScrolled]        = useState(false);
+  const [mobileOpen,      setMobileOpen]       = useState(false);
+  const [mounted,         setMounted]          = useState(false);
+  const [searchOpen,      setSearchOpen]       = useState(false);
+  const [searchQuery,     setSearchQuery]      = useState("");
+  const [activeDropdown,  setActiveDropdown]   = useState<string | null>(null);
+  const [collections,     setCollections]      = useState<NavCollection[]>([]);
+  const [mobileProducts,  setMobileProducts]   = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
 
-  const totalQty = mounted ? rawQty : 0;
-  const [searchOpen,    setSearchOpen]    = useState(false);
-  const [searchQuery,   setSearchQuery]   = useState("");
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  // Fetch real collections from Shopify
+  useEffect(() => {
+    fetch("/api/nav-collections")
+      .then((r) => r.json())
+      .then((data: NavCollection[]) => setCollections(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
+
+  const totalQty = mounted ? rawQty : 0;
 
   const handleSearch = useCallback(
     (e: React.FormEvent) => {
@@ -77,27 +71,18 @@ export function Header() {
         {/* Top bar */}
         <div className="border-b border-border-dim px-4 py-1 hidden md:flex items-center justify-between">
           <p className="font-mono text-[0.6rem] text-text-dim tracking-widest">
-            // SISTEMA EN LINEA — ENVIOS A TODA LATINOAMERICA
+            {"// SISTEMA EN LINEA — ENVIOS A TODA LATINOAMERICA"}
           </p>
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-[0.6rem] text-cyan animate-pulse-glow">
-              ◉ TIENDA ACTIVA
-            </span>
-          </div>
+          <span className="font-mono text-[0.6rem] text-cyan animate-pulse-glow">
+            ◉ TIENDA ACTIVA
+          </span>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 group flex-shrink-0"
-          >
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative w-8 h-8 flex items-center justify-center border border-cyan group-hover:shadow-[0_0_12px_var(--cyan)] transition-shadow">
-              <Zap
-                size={16}
-                className="text-cyan group-hover:text-pink transition-colors"
-                fill="currentColor"
-              />
+              <Zap size={16} className="text-cyan group-hover:text-pink transition-colors" fill="currentColor" />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-sm font-bold tracking-widest uppercase text-text-primary group-hover:text-cyan transition-colors">
@@ -111,47 +96,72 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) =>
-              link.children ? (
-                <div
-                  key={link.label}
-                  className="relative"
-                  onMouseEnter={() => setActiveDropdown(link.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <button className="flex items-center gap-1 px-4 py-2 font-display text-[0.65rem] tracking-widest uppercase text-text-muted hover:text-cyan transition-colors">
-                    {link.label}
-                    <ChevronDown size={10} />
-                  </button>
-                  {activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 mt-0 w-48 bg-bg-dark border border-border-cyan shadow-[0_0_20px_var(--cyan-glow)] py-1">
-                      {link.children.map((child) => (
+
+            {/* Productos + Colecciones dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveDropdown("productos")}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+              <button className="flex items-center gap-1 px-4 py-2 font-display text-[0.65rem] tracking-widest uppercase text-text-muted hover:text-cyan transition-colors">
+                Productos
+                <ChevronDown size={10} />
+              </button>
+
+              {activeDropdown === "productos" && (
+                <div className="absolute top-full left-0 mt-0 w-52 bg-bg-dark border border-border-cyan shadow-[0_0_20px_var(--cyan-glow)] py-1">
+                  {/* Todos los productos */}
+                  <Link
+                    href="/products"
+                    className="flex items-center gap-2 px-4 py-2 font-mono text-xs text-text-muted hover:text-cyan hover:bg-bg-card transition-colors border-b border-border-dim"
+                  >
+                    <LayoutGrid size={10} />
+                    Todos los productos
+                  </Link>
+
+                  {/* Colecciones de Shopify */}
+                  {collections.length > 0 && (
+                    <>
+                      <p className="px-4 pt-2 pb-1 font-mono text-[0.55rem] text-text-dim tracking-widest uppercase">
+                        Colecciones
+                      </p>
+                      {collections.map((col) => (
                         <Link
-                          key={child.href}
-                          href={child.href}
+                          key={col.handle}
+                          href={`/collections/${col.handle}`}
                           className="block px-4 py-2 font-mono text-xs text-text-muted hover:text-cyan hover:bg-bg-card transition-colors"
                         >
-                          {child.label}
+                          {col.title}
                         </Link>
                       ))}
-                    </div>
+                    </>
                   )}
+
+                  {/* Ver todas */}
+                  <Link
+                    href="/collections"
+                    className="block px-4 py-2 font-mono text-xs text-cyan hover:bg-bg-card transition-colors border-t border-border-dim mt-1"
+                  >
+                    Ver todas las colecciones →
+                  </Link>
                 </div>
-              ) : (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="px-4 py-2 font-display text-[0.65rem] tracking-widest uppercase text-text-muted hover:text-cyan transition-colors"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
+              )}
+            </div>
+
+            {/* Resto del nav */}
+            {STATIC_NAV.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="px-4 py-2 font-display text-[0.65rem] tracking-widest uppercase text-text-muted hover:text-cyan transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-2">
-            {/* Search */}
             <button
               onClick={() => setSearchOpen((v) => !v)}
               className="p-2 text-text-muted hover:text-cyan transition-colors"
@@ -159,8 +169,6 @@ export function Header() {
             >
               <Search size={18} />
             </button>
-
-            {/* Account */}
             <Link
               href="/account"
               className="p-2 text-text-muted hover:text-cyan transition-colors hidden sm:block"
@@ -168,8 +176,6 @@ export function Header() {
             >
               <User size={18} />
             </Link>
-
-            {/* Cart */}
             <button
               onClick={toggleCart}
               className="relative p-2 text-text-muted hover:text-cyan transition-colors"
@@ -177,13 +183,11 @@ export function Header() {
             >
               <ShoppingCart size={18} />
               {totalQty > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 flex items-center justify-center bg-pink text-bg-deep font-mono text-[0.6rem] font-bold rounded-none px-0.5">
+                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 flex items-center justify-center bg-pink text-bg-deep font-mono text-[0.6rem] font-bold px-0.5">
                   {totalQty}
                 </span>
               )}
             </button>
-
-            {/* Mobile menu */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
               className="p-2 text-text-muted hover:text-cyan transition-colors lg:hidden"
@@ -197,10 +201,7 @@ export function Header() {
         {/* Search bar */}
         {searchOpen && (
           <div className="border-t border-border-dim bg-bg-dark/95 backdrop-blur-md px-4 py-3">
-            <form
-              onSubmit={handleSearch}
-              className="max-w-2xl mx-auto flex gap-2"
-            >
+            <form onSubmit={handleSearch} className="max-w-2xl mx-auto flex gap-2">
               <input
                 autoFocus
                 type="text"
@@ -222,7 +223,44 @@ export function Header() {
         {/* Mobile nav */}
         {mobileOpen && (
           <nav className="lg:hidden border-t border-border-dim bg-bg-dark/98 backdrop-blur-md px-4 py-4 flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
+            {/* Productos accordion */}
+            <button
+              onClick={() => setMobileProducts((v) => !v)}
+              className="flex items-center justify-between px-2 py-3 font-display text-xs tracking-widest uppercase text-text-muted hover:text-cyan border-b border-border-dim transition-colors w-full text-left"
+            >
+              Productos
+              <ChevronDown size={12} className={cn("transition-transform", mobileProducts && "rotate-180")} />
+            </button>
+            {mobileProducts && (
+              <div className="pl-4 flex flex-col gap-0.5 pb-2 border-b border-border-dim">
+                <Link
+                  href="/products"
+                  onClick={() => setMobileOpen(false)}
+                  className="py-2 font-mono text-xs text-text-muted hover:text-cyan transition-colors"
+                >
+                  Todos los productos
+                </Link>
+                {collections.map((col) => (
+                  <Link
+                    key={col.handle}
+                    href={`/collections/${col.handle}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="py-2 font-mono text-xs text-text-muted hover:text-cyan transition-colors"
+                  >
+                    {col.title}
+                  </Link>
+                ))}
+                <Link
+                  href="/collections"
+                  onClick={() => setMobileOpen(false)}
+                  className="py-2 font-mono text-xs text-cyan transition-colors"
+                >
+                  Ver todas →
+                </Link>
+              </div>
+            )}
+
+            {STATIC_NAV.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
@@ -245,7 +283,6 @@ export function Header() {
 
       {/* Spacer */}
       <div className="h-16" />
-      {/* top bar extra */}
       <div className="hidden md:block h-7" />
     </>
   );
