@@ -1,25 +1,16 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-// Rutas que requieren verificar la sesión de Supabase
-const PROTECTED_PATHS  = ["/account"];
-const AUTH_PATHS       = ["/login", "/register"];
-const AUTH_NEEDED_PATH = [...PROTECTED_PATHS, ...AUTH_PATHS];
-
-function needsAuthCheck(pathname: string) {
-  return AUTH_NEEDED_PATH.some((p) => pathname === p || pathname.startsWith(p + "/"));
-}
+const PROTECTED_PATHS = ["/account"];
+const AUTH_PATHS      = ["/login", "/register"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Para rutas que no necesitan auth, pasar directo sin tocar Supabase
-  if (!needsAuthCheck(pathname)) {
-    return NextResponse.next({ request });
-  }
-
   let supabaseResponse = NextResponse.next({ request });
 
+  // Supabase SIEMPRE necesita refrescar el token en cada request
+  // para que los Server Components puedan leer la sesión correctamente
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -41,6 +32,7 @@ export async function proxy(request: NextRequest) {
     }
   );
 
+  // IMPORTANTE: siempre llamar getUser para refrescar el token JWT
   const { data: { user } } = await supabase.auth.getUser();
 
   // Redirigir a login si accede a /account sin sesión
@@ -51,7 +43,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirigir a /account si ya está logueado e intenta entrar a login/register
+  // Redirigir a /account si ya está logueado e intenta ir a login/register
   if (user && AUTH_PATHS.includes(pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/account";
@@ -63,6 +55,7 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // Excluir archivos estáticos y assets, pero incluir todas las páginas
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2)$).*)",
   ],
 };
