@@ -63,9 +63,9 @@ export default function ContactPage() {
               </p>
               <div className="space-y-2">
                 {[
-                  { label: "Pedidos",    time: "{"} &lt; 2h{"}" },
-                  { label: "Soporte",   time: "{"} &lt; 12h{"}" },
-                  { label: "Devoluciones", time: "{"} &lt; 24h{"}" },
+                  { label: "Pedidos",       time: "< 2h"  },
+                  { label: "Soporte",       time: "< 12h" },
+                  { label: "Devoluciones",  time: "< 24h" },
                 ].map(({ label, time }) => (
                   <div key={label} className="flex justify-between">
                     <span className="font-mono text-xs text-text-dim">{label}</span>
