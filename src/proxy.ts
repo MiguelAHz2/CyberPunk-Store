@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 const PROTECTED_PATHS = ["/account"];
 const AUTH_PATHS      = ["/login", "/register"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   let supabaseResponse = NextResponse.next({ request });
@@ -55,7 +55,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Excluir archivos estáticos y assets, pero incluir todas las páginas
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff|woff2)$).*)",
   ],
 };
